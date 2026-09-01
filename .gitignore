@@ -1,8 +1,27 @@
-# Archivos compilados (.class)
+# Archivos compilados Java
 *.class
 bin/
 out/
+
+# Maven (Spring Boot)
 target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+
+# Gradle (Spring Boot)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Empaquetados Java
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
 
 # Archivos de configuración de IDEs
 .vscode/
