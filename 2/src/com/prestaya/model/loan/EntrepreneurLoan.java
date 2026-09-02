@@ -1,6 +1,7 @@
 package com.prestaya.model.loan;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class EntrepreneurLoan extends Loan {
 
@@ -12,8 +13,13 @@ public class EntrepreneurLoan extends Loan {
 
     @Override
     public BigDecimal calculateMonthlyInstallment() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculateMonthlyInstallment'");
+        BigDecimal interest = getAmount().multiply(INTEREST_RATE);
+        BigDecimal totalAmount = getAmount().add(interest);
+
+        return totalAmount.divide(
+                BigDecimal.valueOf(getTermMonths()),
+                2,
+                RoundingMode.HALF_UP);
     }
 
 }
