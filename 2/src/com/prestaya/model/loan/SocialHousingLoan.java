@@ -1,6 +1,7 @@
 package com.prestaya.model.loan;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class SocialHousingLoan extends Loan {
 
@@ -13,14 +14,16 @@ public class SocialHousingLoan extends Loan {
             BigDecimal governmentSubsidieAmount) {
         super(loanId, amount, termMonths);
 
-        if (governmentSubsidieAmount == null || governmentSubsidieAmount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("El monto del subsidio gubernamental debe ser mayor que cero.");
+        if (governmentSubsidieAmount == null
+                || governmentSubsidieAmount.compareTo(BigDecimal.ZERO) < 0) {
+
+            throw new IllegalArgumentException(
+                    "El subsidio gubernamental no puede ser nulo ni negativo.");
         }
-        if (governmentSubsidieAmount.compareTo(getAmount()) > 0) {
-            throw new IllegalArgumentException("El monto del subsidio gubernamental no puede ser mayor que el monto del préstamo.");
-        }
-        if (governmentSubsidieAmount.compareTo(getAmount()) {
-            
+
+        if (governmentSubsidieAmount.compareTo(getAmount()) >= 0) {
+            throw new IllegalArgumentException(
+                    "El subsidio gubernamental debe ser menor que el monto del préstamo.");
         }
 
         this.governmentSubsidieAmount = governmentSubsidieAmount;
@@ -32,9 +35,13 @@ public class SocialHousingLoan extends Loan {
 
     @Override
     public BigDecimal calculateMonthlyInstallment() {
+        BigDecimal financedAmount = getAmount()
+                .subtract(governmentSubsidieAmount);
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculateMonthlyInstallment'");
+        return financedAmount.divide(
+                BigDecimal.valueOf(getTermMonths()),
+                2,
+                RoundingMode.HALF_UP);
     }
 
 }
