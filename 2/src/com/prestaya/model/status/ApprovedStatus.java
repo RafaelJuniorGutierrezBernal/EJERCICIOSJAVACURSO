@@ -1,5 +1,8 @@
 ﻿package com.prestaya.model.status;
 
-public record ApprovedStatus(String approvedReason) implements ApplicationStatus {
+import java.math.BigDecimal;
 
+public record ApprovedStatus(
+        BigDecimal approvedAmount,
+        BigDecimal calculatedInstallment) implements ApplicationStatus {
 }

@@ -1,5 +1,7 @@
 package com.prestaya.model.status;
 
-public record RejectedStatus(String rejectedReason) implements ApplicationStatus {
+public record RejectedStatus(
+        String rejectionReason)
+        implements ApplicationStatus {
 
 }
