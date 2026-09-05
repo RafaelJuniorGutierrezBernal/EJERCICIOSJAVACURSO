@@ -22,4 +22,22 @@ public class EntrepreneurLoan extends Loan {
                 RoundingMode.HALF_UP);
     }
 
+    @Override
+    public String toString() {
+        return """
+                ----------------------------------------
+                Tipo de crédito: Emprendedor
+                ID del préstamo: %s
+                Monto aprobado: $%s
+                Plazo: %d meses
+                Tasa mensual: 1.2%%
+                Cuota mensual: $%s
+                ----------------------------------------
+                """.formatted(
+                getLoanId(),
+                getAmount(),
+                getTermMonths(),
+                calculateMonthlyInstallment());
+    }
+
 }

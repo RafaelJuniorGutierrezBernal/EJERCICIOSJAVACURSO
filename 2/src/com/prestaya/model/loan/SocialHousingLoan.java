@@ -44,4 +44,26 @@ public class SocialHousingLoan extends Loan {
                 RoundingMode.HALF_UP);
     }
 
+    @Override
+    public String toString() {
+        BigDecimal financedAmount = getAmount()
+                .subtract(governmentSubsidieAmount);
+        return """
+                ----------------------------------------
+                Tipo de crédito: Vivienda social
+                ID del préstamo: %s
+                Monto solicitado: $%s
+                Subsidio gubernamental: $%s
+                Monto financiado: $%s
+                Plazo: %d meses
+                Cuota mensual: $%s
+                ----------------------------------------
+                """.formatted(
+                getLoanId(),
+                getAmount(),
+                getGovernmentSubsidieAmount(),
+                financedAmount,
+                getTermMonths(),
+                calculateMonthlyInstallment());
+    }
 }
